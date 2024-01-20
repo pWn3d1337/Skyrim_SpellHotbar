@@ -1,2 +1,2 @@
-# Skyrim_SpellHotbar
+# Spell Hotbar
 Adds a Spell Hotbar to skyrim
