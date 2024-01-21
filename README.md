@@ -1,5 +1,82 @@
 # Spell Hotbar
 Adds a Spell Hotbar to skyrim
+![Ingame Screenshot](Screenshots/ingame_bar.jpg)
+
+## Supported Skyrim Version
+The mod is built with CommonLib-NG is verified to work on 1.5.97 and 1.6.640   
+1.6.1xxx is currently in an unstable state for mods and I would not recommend users to use it yet. 
+Maybe it will work already, depends if CommonLib + AddressLibrary is enough or not. I do not have an 1.6.1xxx setup at the moment so no support yet.
+
+## Beta State
+This mod is currently just released to the public and not well tested. Use at your own risk. Tester Feedback would be greatly appreciated.
+SpellHotbar adds two quest scripts (the MCM menu and the script for key input handling and cast events).
+Both should be able to get rid of from your save by using [ReSaver](https://www.nexusmods.com/skyrimspecialedition/mods/5031/?tab=files), but no guarantees, still use at or own risk.
+
+## Requirements
+[SKSE](https://skse.silverlock.org/)  
+[Address Library for SKSE Plugins](https://www.nexusmods.com/skyrimspecialedition/mods/32444)  
+[SkyUI](https://www.nexusmods.com/skyrimspecialedition/mods/12604)  
+[Jcontainers](https://www.nexusmods.com/skyrimspecialedition/mods/16495)  
+[PapyrusUtil](https://www.nexusmods.com/skyrimspecialedition/mods/13048)  
+[powerofthree's Papyrus Extender](https://www.nexusmods.com/skyrimspecialedition/mods/22854)  
+[DAR](https://www.nexusmods.com/skyrimspecialedition/mods/33746) or [OAR](https://www.nexusmods.com/skyrimspecialedition/mods/92109)  
+
+## Slotting Spells
+Up to 12 shortcuts can be defined for spells to be directly cast (with weapons in hands) by script.
+The slots can be assigned from within the magic menu by hovering over a spell and pressing their shortcut.
+Spells, Powers and Shouts are supported.
+![Menu Screenshot](Screenshots/bind_menu.jpg)
+
+## Multiple Bars
+There are multible different bars available with inheritance that automatically change depending on your equipped items.
+e.G: "Two-Handed" bar inherits from "Melee" which inherits from "Default". Inheritance can be disabled for individual bars
+
+### Bars Structure
+* Default
+  * Melee
+    * Dual Wield
+    * 1H + Shield
+    * Dual Wield
+  * 1H + Spell
+  * Magic
+  * Ranged
+  * Sneak
+    * Melee Sneak
+      * Dual Wield Sneak
+      * 1H + Shield Sneak
+      * Dual Wield Sneak
+    * 1H + Spell Sneak 
+    * Magic Sneak
+    * Ranged Sneak
+* Vampire Lord
+* Werewolf (no use without mods)
+
+Every bar except Default, Vampire Lord and Werewolf can be individually disabled, in that case the parent is used.
+Just one "Default" bar is possible as minimal setup
+  
+## Modifiers
+Bars can have ctrl, shift and alt modifiers for up to 3 different modes per bar.
+
+## Highly Configurable
+Many things like positioning, size, amount of buttons (1-12), keybinds, modifiers (ctrl, shift, alt), disabling individual bars
+
+## Import / Export
+MCM config and slotted spells can be individually exported and imported from/to json.
+
+## Individual Spell config
+Every spell can be individually configured (casttime, cooldown, icon, animation, ...). Spells without config are also supported, there are default icons and cast data is read from the form
+the individual config is only needed for specific spells, like the Master spells (reduce way to long casttime which causes problems with animations, but add cooldonw instead)
+
+### Support for modded spells
+All icons and data are defined in .csv files which are read from dedicated folders, any modded skills can be added that way
+
+## AI generated Icons for Spells
+All AE content is supported with an icon and spell config
+
+## Animations
+Thanks to open permissions from [BOTuser998's Thu'um - Fully Animated Shouts](https://www.nexusmods.com/skyrimspecialedition/mods/50559), these shout animations
+can be played when script casting one of the spells. The anim for each spell can be configured in the .csv files.
+This requires to have [DAR](https://www.nexusmods.com/skyrimspecialedition/mods/33746) or [OAR](https://www.nexusmods.com/skyrimspecialedition/mods/92109) installed. OAR is more modern and preferable.
 
 # License
 The projects consists of different parts
