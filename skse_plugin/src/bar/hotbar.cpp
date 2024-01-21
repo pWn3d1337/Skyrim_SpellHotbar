@@ -92,7 +92,7 @@ namespace SpellHotbar
                 logger::error("No barname known for {}!", key);
             }
         } else {
-            if (Bars::bar_names.contains(key)) logger::trace("Storing bar {}", Bars::bar_names.at(key));
+            //if (Bars::bar_names.contains(key)) logger::trace("Storing bar {}", Bars::bar_names.at(key));
             if (!serializer->WriteRecordData(&m_enabled, sizeof(bool))) {
                 logger::error("Failed to write enabled state for {}", m_name);
             } else {

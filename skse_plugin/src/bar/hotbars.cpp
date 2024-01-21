@@ -148,7 +148,7 @@ namespace SpellHotbar::Bars {
         bar_show_setting_vampire_lord = bar_show_mode::combat;
         bar_show_setting_werewolf = bar_show_mode::never;
 
-        use_default_bar_when_sheathed = true;
+        use_default_bar_when_sheathed = false;
 
         add_bars(MAIN_BAR);
         add_bars(MELEE_BAR, MAIN_BAR);

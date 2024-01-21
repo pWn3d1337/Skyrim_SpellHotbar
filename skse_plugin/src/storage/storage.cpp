@@ -8,7 +8,7 @@ namespace SpellHotbar::Storage {
 
     void SaveCallback(SKSE::SerializationInterface* a_intfc)
     {
-        logger::trace("Save Callback!");
+        logger::trace("Saving to SKSE save...");
         /// main hotbars data
         if (!a_intfc->OpenRecord('HOTB', Storage::save_format))
         {
@@ -57,7 +57,7 @@ namespace SpellHotbar::Storage {
 
     void LoadCallback(SKSE::SerializationInterface* a_intfc)
     {
-        logger::trace("Load Callback!");
+        logger::trace("Loading from SKSE save...");
 
         uint32_t type{0};
         uint32_t version{0};

@@ -403,6 +403,14 @@ int set_text_show_mode(RE::StaticFunctionTag*, int value)
     return static_cast<int>(SpellHotbar::Bars::text_show_setting);
 }
 
+bool is_default_bar_when_sheated(RE::StaticFunctionTag*) {
+    return SpellHotbar::Bars::use_default_bar_when_sheathed;
+}
+
+bool toggle_default_bar_when_sheathed(RE::StaticFunctionTag*) {
+    return SpellHotbar::Bars::use_default_bar_when_sheathed = !SpellHotbar::Bars::use_default_bar_when_sheathed;
+}
+
 bool SpellHotbar::register_papyrus_functions(RE::BSScript::IVirtualMachine* vm) {
     vm->RegisterFunction("getCurrentSelectedSpellInMenu", "SpellHotbar", get_current_selected_spell_in_menu);
     vm->RegisterFunction("getSlottedSpell", "SpellHotbar", get_slotted_spell);
@@ -451,5 +459,7 @@ bool SpellHotbar::register_papyrus_functions(RE::BSScript::IVirtualMachine* vm) 
     vm->RegisterFunction("getTextShowMode", "SpellHotbar", get_text_show_mode);
     vm->RegisterFunction("setTextShowMode", "SpellHotbar", set_text_show_mode);
     vm->RegisterFunction("isTransformedFavMenuBind", "SpellHotbar", is_transformed_with_fav_menu_binding);
+    vm->RegisterFunction("isDefaultBarWhenSheathed", "SpellHotbar", is_default_bar_when_sheated);
+    vm->RegisterFunction("toggleDefaultBarWhenSheathed", "SpellHotbar", toggle_default_bar_when_sheathed);
     return true;
 }

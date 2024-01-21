@@ -18,7 +18,7 @@ SKSEPluginLoad(const SKSE::LoadInterface * skse)
     SpellHotbar::Bars::init();
 
     SKSE::GetMessagingInterface()->RegisterListener([](SKSE::MessagingInterface::Message* message) {
-        logger::trace("Received SKSE Message {}", message->type);
+        //logger::trace("Received SKSE Message {}", message->type);
         if (message->type == SKSE::MessagingInterface::kDataLoaded) {
             SpellHotbar::GameData::onDataLoad();
             logger::info("SpellHotbar GameData loaded!");
@@ -33,7 +33,7 @@ SKSEPluginLoad(const SKSE::LoadInterface * skse)
     SKSE::GetPapyrusInterface()->Register(SpellHotbar::register_papyrus_functions);
     SpellHotbar::RenderManager::install();
 
-    SKSE::AllocTrampoline(1 << 5);
+    SKSE::AllocTrampoline(1 << 4);
     SpellHotbar::Input::install_hook();
     logger::info("SpellHotbar Papyrus DLL functions registered!");
 
