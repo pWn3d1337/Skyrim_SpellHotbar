@@ -1,0 +1,16 @@
+Name	FormID	Plugin	Casteffect	GCD	Cooldown	Casttime	Animation
+Shadow Stride	0x381AF8	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	8
+Step Through Shadows	0x30D2A7	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	7
+Shadow Dance	0x30818A	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	8
+Pull Through Shadows	0x30D2A4	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	6
+Night Gate	0x025EB2	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	10s	1,75	3
+Draining Touch	0x2FDF7D	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	11
+Azra's Wrath	0x3216CA	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	6
+Nightblade	0x330A43	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	15
+Draining Shroud	0x31C5C1	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	2
+Draining Mist	0x330A2E	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	15s	1,75	3
+Gather Shadows	0x3727BF	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	8
+Darkness	0x3727C3	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	14
+Reveal Secrets	0x3727C1	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	9
+Possession	0x3F637F	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	-1	-1	4
+Nightfall	0x31C5B8	Triumvirate - Mage Archetypes.esp	ConjurationSummon	-1	15s	1,75	12

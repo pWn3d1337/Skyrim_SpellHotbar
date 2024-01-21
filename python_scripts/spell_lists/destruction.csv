@@ -1,0 +1,45 @@
+Name	FormID	Plugin	Casteffect	GCD	Cooldown	Casttime	Animation
+Choking Grasp	0x00085A	ccbgssse014-spellpack01.esl	ConjurationSummon	-1	-1	-1	11
+Elemental Flare	0x000850	ccbgssse014-spellpack01.esl	DestructionFire	-1	-1	-1	1
+Flames	0x012fcd	Skyrim.esm		-1	-1	-1	0
+Frostbite	0x02b96b	Skyrim.esm		-1	-1	-1	0
+Sparks	0x02dd2a	Skyrim.esm		-1	-1	-1	0
+Elemental Bolt	0x00085F	ccbgssse014-spellpack01.esl	DestructionFire	-1	-1	-1	1
+Fire Rune	0x05db90	Skyrim.esm	DestructionFire	-1	-1	-1	3
+Firebolt	0x012fd0	Skyrim.esm	DestructionFire	-1	-1	-1	1
+Freeze	0x02732d	Dragonborn.esm	DestructionFrost	-1	-1	-1	1
+Frost Rune	0x06796f	Skyrim.esm	DestructionFrost	-1	-1	-1	3
+Ice Spike	0x02b96c	Skyrim.esm	DestructionFrost	-1	-1	-1	1
+Ignite	0x02732b	Dragonborn.esm	DestructionFire	-1	-1	-1	1
+Lightning Bolt	0x02dd29	Skyrim.esm	DestructionShock	-1	-1	-1	4
+Lightning Rune	0x067970	Skyrim.esm	DestructionShock	-1	-1	-1	3
+Strangulation	0x000859	ccbgssse014-spellpack01.esl	ConjurationSummon	-1	-1	-1	11
+Chain Lightning	0x045f9d	Skyrim.esm	DestructionShock	-1	-1	-1	4
+Elemental Burst	0x00085B	ccbgssse014-spellpack01.esl	DestructionFire	-1	-1	-1	5
+Fireball	0x01c789	Skyrim.esm	DestructionFire	-1	-1	-1	5
+Flame Cloak	0x03ae9f	Skyrim.esm	DestructionFire	-1	-1	-1	2
+Frost Cloak	0x03aea2	Skyrim.esm	DestructionFrost	-1	-1	-1	2
+Hangman's Noose	0x000858	ccbgssse014-spellpack01.esl	ConjurationSummon	-1	-1	-1	11
+Ice Storm	0x045f9c	Skyrim.esm	DestructionFrost	-1	-1	-1	5
+Lightning Cloak	0x03aea3	Skyrim.esm	DestructionShock	-1	-1	-1	2
+Whirlwind Cloak	0x01772d	Dragonborn.esm	AlterationShield	-1	-1	-1	2
+Elemental Blast	0x000856	ccbgssse014-spellpack01.esl	DestructionFire	-1	-1	-1	13
+Icy Spear	0x10f7ec	Skyrim.esm	DestructionFrost	-1	-1	-1	4
+Incinerate	0x10f7ed	Skyrim.esm	DestructionFire	-1	-1	-1	5
+Mara's Wrath	0x000855	ccbgssse014-spellpack01.esl	DestructionFire	-1	-1	-1	2
+Thunderbolt	0x10f7ee	Skyrim.esm	DestructionShock	-1	-1	-1	4
+Touch of Death	0x000857	ccbgssse014-spellpack01.esl	ConjurationSummon	-1	-1	-1	11
+Unbounded Flames	0x00080e	ccbgssse014-spellpack01.esl		-1	-1	-1	0
+Unbounded Freezing	0x00080d	ccbgssse014-spellpack01.esl		-1	-1	-1	0
+Unbounded Storms	0x000808	ccbgssse014-spellpack01.esl		-1	-1	-1	0
+Wall of Flames	0x035d7f	Skyrim.esm		-1	-1	-1	0
+Wall of Frost	0x035d80	Skyrim.esm		-1	-1	-1	0
+Wall of Storms	0x035d81	Skyrim.esm		-1	-1	-1	0
+Blizzard	0x07e8e4	Skyrim.esm	DestructionFrost	-1	15s	1,75	2
+Fire Storm	0x07a82b	Skyrim.esm	DestructionFire	-1	15s	1,75	2
+Lightning Storm	0x07e8e5	Skyrim.esm		-1	-1	-1	0
+Arniel's Convection	0x06a104	Skyrim.esm		-1	-1	-1	0
+Vampiric Drain	0x08d5bf	Skyrim.esm		-1	-1	-1	0
+Vampiric Drain	0x08d5c0	Skyrim.esm		-1	-1	-1	0
+Vampiric Drain	0x08d5c1	Skyrim.esm		-1	-1	-1	0
+Vampiric Drain	0x08d5c2	Skyrim.esm		-1	-1	-1	0

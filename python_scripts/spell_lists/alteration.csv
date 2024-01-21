@@ -1,0 +1,31 @@
+Name	FormID	Plugin	Casteffect	GCD	Cooldown	Casttime	Animation
+Candlelight	0x043324	Skyrim.esm	AlterationGreen	-1	-1	-1	12
+Oakflesh	0x05AD5C	Skyrim.esm	AlterationShield	-1	-1	-1	2
+Teleport Pet: Arachnia	0x000921	ccvsvsse002-pets.esl	AlterationGreen	-1	-1	-1	3
+Teleport Pet: Bone Wolf	0x000806	ccbgssse036-petbwolf.esl	AlterationGreen	-1	-1	-1	3
+Teleport Pet: Demented Elytra Nymph	0x08BC17	ccbgssse025-advdsgs.esm	AlterationGreen	-1	-1	-1	3
+Teleport Pet: Dwarven Mudcrab	0x000810	ccbgssse010-petdwarvenarmoredmudcrab.esl	AlterationGreen	-1	-1	-1	3
+Teleport Pet: Hilda	0x00091F	ccvsvsse002-pets.esl	AlterationGreen	-1	-1	-1	3
+Teleport Pet: Manic Elytra Nymph	0x08BC16	ccbgssse025-advdsgs.esm	AlterationGreen	-1	-1	-1	3
+Teleport Pet: Nix-Hound	0x000811	ccbgssse035-petnhound.esl	AlterationGreen	-1	-1	-1	3
+Teleport Pet: Skritch	0x00091D	ccvsvsse002-pets.esl	AlterationGreen	-1	-1	-1	3
+Teleport Pet: Sweet Roll	0x000920	ccvsvsse002-pets.esl	AlterationGreen	-1	-1	-1	3
+Teleport Pet: Thistle	0x00091E	ccvsvsse002-pets.esl	AlterationGreen	-1	-1	-1	3
+Magelight	0x043323	Skyrim.esm	AlterationGreen	-1	-1	-1	4
+Stoneflesh	0x05AD5D	Skyrim.esm	AlterationShield	-1	-1	-1	2
+Ash Shell	0x017731	Dragonborn.esm	AlterationGreen	-1	-1	-1	4
+Detect Life	0x0211EE	Skyrim.esm		-1	-1	-1	9
+Ironflesh	0x051B16	Skyrim.esm	AlterationShield	-1	-1	-1	2
+Master Transmute	0x000CDF	cckrtsse001_altar.esl	AlterationGreen	-1	-1	-1	12
+Paralysis Rune	0x000D64	ccbgssse014-spellpack01.esl	AlterationGreen	-1	-1	-1	3
+Telekinesis	0x01A4CC	Skyrim.esm	AlterationGreen	-1	-1	-1	7
+Telekinesis Arrows	0x000829	ccbgssse002-exoticarrows.esl	ConjurationSummon	-1	-1	-1	9
+Transmute	0x109111	Skyrim.esm	AlterationGreen	-1	-1	-1	12
+Waterbreathing	0x05D175	Skyrim.esm	AlterationGreen	-1	-1	-1	12
+Ash Rune	0x0177AF	Dragonborn.esm	AlterationGreen	-1	-1	-1	3
+Detect Dead	0x0211EF	Skyrim.esm		-1	-1	-1	9
+Ebonyflesh	0x05AD5E	Skyrim.esm	AlterationShield	-1	-1	-1	2
+Paralyze	0x05AD5F	Skyrim.esm	AlterationGreen	-1	-1	-1	4
+Dragonhide	0x0CDB70	Skyrim.esm	AlterationShield	-1	-1	1,75	2
+Mass Paralysis	0x0B62E6	Skyrim.esm	AlterationGreen	-1	-1	1	2
+Equilibrium	0x0DA746	Skyrim.esm		-1	-1	-1	2

@@ -1,0 +1,24 @@
+Name	FormID	Plugin	Casteffect	GCD	Cooldown	Casttime	Animation
+Healing	0x012fcc	Skyrim.esm		-1	-1	-1	2
+Lesser Ward	0x013018	Skyrim.esm		-1	-1	-1	0
+Fast Healing	0x02f3b8	Skyrim.esm	RestorationGold	-1	-1	-1	8
+Healing Hands	0x04d3f2	Skyrim.esm		-1	-1	-1	0
+Necromantic Healing	0x00e8d2	Dawnguard.esm		-1	-1	-1	0
+Steadfast Ward	0x0211f1	Skyrim.esm		-1	-1	-1	0
+Sun Fire	0x003f52	Dawnguard.esm	RestorationGold	-1	-1	-1	4
+Turn Lesser Undead	0x04b146	Skyrim.esm	RestorationGold	-1	-1	-1	4
+Close Wounds	0x0b62ef	Skyrim.esm	RestorationGold	-1	-1	-1	8
+Greater Ward	0x0211f0	Skyrim.esm		-1	-1	-1	0
+Heal Other	0x012fd2	Skyrim.esm	RestorationGold	-1	-1	-1	11
+Heal Undead	0x00e8d4	Dawnguard.esm	RestorationGold	-1	-1	-1	11
+Poison Rune	0x01d74b	Dragonborn.esm	IllusionGreen	-1	-1	-1	3
+Repel Lesser Undead	0x04d3f8	Skyrim.esm	RestorationBlue	-1	-1	-1	5
+Stendarr's Aura	0x0038b5	Dawnguard.esm	RestorationGold	-1	-1	-1	2
+Turn Undead	0x05dd5d	Skyrim.esm	RestorationBlue	-1	-1	-1	4
+Vampire's Bane	0x0038b6	Dawnguard.esm	RestorationGold	-1	-1	-1	13
+Circle of Protection	0x05312d	Skyrim.esm	RestorationBlue	-1	-1	-1	10
+Grand Healing	0x0b62ee	Skyrim.esm	RestorationGold	-1	-1	-1	2
+Repel Undead	0x05dd60	Skyrim.esm	RestorationBlue	-1	-1	-1	5
+Turn Greater Undead	0x05dd5e	Skyrim.esm	RestorationBlue	-1	-1	-1	4
+Bane of the Undead	0x08c1ab	Skyrim.esm	RestorationGold	-1	15s	1,75	2
+Guardian Circle	0x0e0ccf	Skyrim.esm	RestorationBlue	-1	10s	1,75	10

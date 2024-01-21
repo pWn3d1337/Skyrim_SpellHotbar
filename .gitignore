@@ -1,0 +1,11 @@
+/python_scripts/.venv
+/python_scripts/venv
+/skse_plugin/vcpkg_installed
+/skse_plugin/.vscode
+/skse_plugin/.vs
+/skse_plugin/build
+/skse_plugin/vcpkg_installed
+/SWF_Generator/out/production
+/build
+/python_scripts/spell_lists/mods/*.csv#
+/python_scripts/spell_lists/mods/OFF
