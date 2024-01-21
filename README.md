@@ -1,6 +1,8 @@
 # Spell Hotbar
 Adds a Spell Hotbar to skyrim
-![Ingame Screenshot](Screenshots/ingame_bar.jpg)
+![Ingame Screenshot](Screenshots/ingame_bar.jpg)  
+[Demo Video 1](https://www.youtube.com/watch?v=qC0AHQCgk8A)  
+[Demo Video 2](https://www.youtube.com/watch?v=r-Z7taHRuek)  
 
 ## Supported Skyrim Version
 The mod is built with CommonLib-NG is verified to work on 1.5.97 and 1.6.640   
