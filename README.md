@@ -21,7 +21,8 @@ Both should be able to get rid of from your save by using [ReSaver](https://www.
 [Jcontainers](https://www.nexusmods.com/skyrimspecialedition/mods/16495)  
 [PapyrusUtil](https://www.nexusmods.com/skyrimspecialedition/mods/13048)  
 [powerofthree's Papyrus Extender](https://www.nexusmods.com/skyrimspecialedition/mods/22854)  
-[DAR](https://www.nexusmods.com/skyrimspecialedition/mods/33746) or [OAR](https://www.nexusmods.com/skyrimspecialedition/mods/92109)  
+[DAR](https://www.nexusmods.com/skyrimspecialedition/mods/33746) or [OAR](https://www.nexusmods.com/skyrimspecialedition/mods/92109) - for animations  
+[Inventory Interface Information Injector](https://www.nexusmods.com/skyrimspecialedition/mods/85702) - if you want icons in the swf menu
 
 ## Slotting Spells
 Up to 12 shortcuts can be defined for spells to be directly cast (with weapons in hands) by script.
