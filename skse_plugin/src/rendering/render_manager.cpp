@@ -399,18 +399,21 @@ void RenderManager::D3DInitHook::thunk() {
     func();
 
     logger::info("RenderManager: Initializing...");
-    auto render_manager = RE::BSRenderManager::GetSingleton();
-    if (!render_manager) {
-        logger::error("Cannot find render manager. Initialization failed!");
+    auto renderer = RE::BSGraphics::Renderer::GetSingleton();
+    if (!renderer){
+        logger::error("Cannot find renderer. Initialization failed!");
+        return;
+    }
+    auto render_data = renderer->GetRendererData();
+    if (!render_data) {
+        logger::error("Cannot get renderer data. Initialization failed!");
         return;
     }
 
-    auto render_data = render_manager->GetRuntimeData();
-
     logger::info("Getting swapchain...");
-    auto swapchain = render_data.swapChain;
+    auto swapchain = render_data->renderWindows->swapChain;
     if (!swapchain) {
-        logger::error("Cannot find swapchain. Initialization failed!");
+        logger::error("Cannot get swapChain. Initialization failed!");
         return;
     }
 
@@ -421,8 +424,8 @@ void RenderManager::D3DInitHook::thunk() {
         return;
     }
 
-    device = render_data.forwarder;
-    context = render_data.context;
+    device = render_data->forwarder;
+    context = render_data->context;
 
     logger::info("Initializing ImGui...");
     ImGui::CreateContext();

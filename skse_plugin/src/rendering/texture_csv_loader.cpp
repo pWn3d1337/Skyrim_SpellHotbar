@@ -72,6 +72,7 @@ namespace SpellHotbar::TextureCSVLoader {
         {"CONJURATION_SUMMON_ADEPT", GameData::DefaultIconType::CONJURATION_SUMMON_ADEPT},
         {"CONJURATION_SUMMON_EXPERT", GameData::DefaultIconType::CONJURATION_SUMMON_EXPERT},
         {"CONJURATION_SUMMON_MASTER", GameData::DefaultIconType::CONJURATION_SUMMON_MASTER},
+        {"SHOUT_GENERIC", GameData::DefaultIconType::SHOUT_GENERIC},
     };
 
     bool is_spell_icon_file(rapidcsv::Document& doc)

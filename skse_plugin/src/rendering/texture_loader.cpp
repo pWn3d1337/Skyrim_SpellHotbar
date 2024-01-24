@@ -10,15 +10,12 @@ namespace SpellHotbar::TextureLoader {
     bool fromFile(const char* filename, ID3D11ShaderResourceView** out_srv, int* out_width,
                              int* out_height) {
 
-        auto* render_manager = RE::BSRenderManager::GetSingleton();
-        if (!render_manager) {
-            logger::error("Cannot find Skyrim RenderManager. texture loading failed");
+        auto* renderer = RE::BSGraphics::Renderer::GetSingleton();
+        if (!renderer) {
+            logger::error("Cannot find Skyrim Renderer. texture loading failed");
             return false;
         }
-
-        auto& [forwarder, context, unk58, unk60, unk68, swapChain, unk78, unk80, renderView, resourceView] =
-            render_manager->GetRuntimeData();
-
+        auto& forwarder = renderer->data.forwarder;
 
         // Load from disk into a raw RGBA buffer
         int image_width = 0;

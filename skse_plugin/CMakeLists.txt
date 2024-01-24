@@ -5,6 +5,7 @@ project(SpellHotbar VERSION 0.1.0 LANGUAGES CXX)
 #output folder to copy dll after building
 set(OUTPUT_FOLDER "F:/Skyrim Dev/ADT/mods/Spell Hotbar")
 #set(OUTPUT_FOLDER "F:/Skyrim Dev/DEV_1_5_97/mods/Spell Hotbar")
+#set(OUTPUT_FOLDER "F:/Skyrim Dev/DEV_1_6_1170/mods/Spell Hotbar")
 
 # Setup your SKSE plugin as an SKSE plugin!
 find_package(imgui CONFIG REQUIRED)
@@ -28,8 +29,8 @@ set(source_files src/plugin.cpp
                  src/bar/hotbar.cpp
                  src/bar/hotbars.h
                  src/bar/hotbars.cpp
-                 src/input/input.h
-                 src/input/input.cpp
+                 "src/input/input.h"
+                 "src/input/input.cpp"
                  src/rendering/texture_csv_loader.h
                  src/rendering/texture_csv_loader.cpp
                  src/events/eventlistener.h

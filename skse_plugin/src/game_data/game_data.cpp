@@ -310,28 +310,18 @@ namespace SpellHotbar::GameData {
             return std::make_pair(false, fast_fade);
         }
 
-        if (const auto* control_map = RE::ControlMap::GetSingleton();
+        //crashes on 1170
+        /*if (const auto* control_map = RE::ControlMap::GetSingleton();
             !control_map || !control_map->IsMovementControlsEnabled() ||
-            control_map->contextPriorityStack.back() != RE::UserEvents::INPUT_CONTEXT_ID::kGameplay) {
+            (control_map->contextPriorityStack.size() > 0 && control_map->contextPriorityStack.back() != RE::UserEvents::INPUT_CONTEXT_ID::kGameplay)) {
+            return std::make_pair(false, fast_fade);
+        }*/
+        //not sure what exactly contextPriorityStack does anyway
+        if (const auto* control_map = RE::ControlMap::GetSingleton();
+            !control_map || !control_map->IsMovementControlsEnabled())
+        { 
             return std::make_pair(false, fast_fade);
         }
-
-        /* auto* hud = static_cast<RE::HUDMenu*>(ui->GetMenu(RE::HUDMenu::MENU_NAME).get());
-        if (!hud) return std::make_pair(false, dur);
-        auto & runtime_dat = hud->GetRuntimeData();
-
-        *if (hud->uiMovie) {
-            auto m = hud->uiMovie.get();
-            RE::GFxValue val;
-            m->GetVariable(&val, "");
-        }*/
-
-        /* if (runtime_dat.health->view)
-        {
-            auto gfxview = runtime_dat.health->view.get();
-            float alpha = gfxview->GetBackgroundAlpha();
-            logger::info("Health Meter Alpha: {}", alpha);
-        }*/
 
         auto* pc = RE::PlayerCharacter::GetSingleton();
         if (pc) {
@@ -476,7 +466,10 @@ namespace SpellHotbar::GameData {
                 }
             }
         }
-
+        else if (form->GetFormType() == RE::FormType::Shout) {
+            //RE::TESShout* shout = form->As<RE::TESShout>();
+            ret = DefaultIconType::SHOUT_GENERIC;
+        }
         return ret;
     }
 

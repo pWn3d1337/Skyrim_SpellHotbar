@@ -84,7 +84,8 @@ default_icons = [
     "CONJURATION_SUMMON_APPRENTICE",
     "CONJURATION_SUMMON_ADEPT",
     "CONJURATION_SUMMON_EXPERT",
-    "CONJURATION_SUMMON_MASTER"
+    "CONJURATION_SUMMON_MASTER",
+    "SHOUT_GENERIC"
 ]
 
 
@@ -259,6 +260,11 @@ def stitch_default_icons(names: list[str], icon_root: list[str], output_base: Pa
     df['v1'] = np.nan
     df['use_mask'] = True
     df['overlay'] = df['IconName'].apply(_get_overlay)
+
+    def is_shout(x) -> str | None:
+        return "DS" if "shout" in str(x) else None
+
+    df["Shouttext"] = df["Filename"].apply(is_shout)
 
     if not alphamask_empty:
         df.loc[(df['IconName'] == 'BAR_EMPTY', 'use_mask')] = False
@@ -528,7 +534,8 @@ if __name__ == "__main__":
         rf"{project_root}\vanilla_spell_icons\restoration_generic",
         rf"{project_root}\vanilla_spell_icons\destruction_generic",
         rf"{project_root}\vanilla_spell_icons\illusion_generic",
-        rf"{project_root}\vanilla_spell_icons\conjuration_generic"
+        rf"{project_root}\vanilla_spell_icons\conjuration_generic",
+        rf"{project_root}\vanilla_spell_icons\shouts_generic"
     ]
 
     # alpha_mask = none
@@ -546,7 +553,7 @@ if __name__ == "__main__":
     # tmp_swf_path = r"F:\Skyrim Dev\WORK\TMP\tmp_spell_icons.swf"
 
     tmp_icons_dir = r"F:\Skyrim Dev\WORK\TMP\icons"
-    if True:
+    if False:
         swf_path = "F:\\Skyrim Dev\\ADT\\mods\\Spell Hotbar\\Interface\\SpellHotbar\\spell_icons.swf"
         create_i4_icons(spell_lists, icon_root_folders + default_icons_folders, mod_root_path / "../InventoryInjector/SpellHotbar.json",
                         alpha_mask,

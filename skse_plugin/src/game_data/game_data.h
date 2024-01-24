@@ -78,6 +78,7 @@ namespace SpellHotbar::GameData {
         CONJURATION_SUMMON_ADEPT,
         CONJURATION_SUMMON_EXPERT,
         CONJURATION_SUMMON_MASTER,
+        SHOUT_GENERIC,
     };
 
     struct Gametime_cooldown_value {

@@ -28,5 +28,5 @@ if __name__ == "__main__":
     #cleanse_images(f"{input_dir_root}/icons", f"{output_dir_root}/icons", subdirs=False)
     #cleanse_images(f"{input_dir_root}/icons", f"{output_dir_root}/icons", subdirs=True)
 
-
+    #cleanse_images(f"{input_dir_root}/ai_spell_icons/shouts_generic", f"{output_dir_root}/vanilla_spell_icons/shouts_generic", subdirs=False)
 
