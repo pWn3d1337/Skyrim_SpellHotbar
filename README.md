@@ -1,4 +1,5 @@
-# Spell Hotbar
+![#Spell Hotbar](Screenshots/spell_hotbar_logo.png)  
+# 
 Adds a Spell Hotbar to skyrim
 ![Ingame Screenshot](Screenshots/ingame_bar.jpg)  
 [Demo Video 1](https://www.youtube.com/watch?v=qC0AHQCgk8A)  
