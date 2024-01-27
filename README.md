@@ -72,7 +72,10 @@ Every spell can be individually configured (casttime, cooldown, icon, animation,
 the individual config is only needed for specific spells, like the Master spells (reduce way to long casttime which causes problems with animations, but add cooldonw instead)
 
 ### Support for modded spells
-All icons and data are defined in .csv files which are read from dedicated folders, any modded skills can be added that way
+All icons and data are defined in .csv files which are read from dedicated folders, any modded skills can be added that way.
+There are default icons that will be used for unknown spells, these depend on school, rank and type of a spell. Destruction can check element, Restoration and Illusion if friendly or hostile, Conjuration if summon or bound weapon.  
+  
+A few spell mods already have icon packs, If you want to add more or help in assisting to create icons for popular spell mods, feel free to contact me.
 
 ## AI generated Icons for Spells
 All AE content is supported with an icon and spell config
