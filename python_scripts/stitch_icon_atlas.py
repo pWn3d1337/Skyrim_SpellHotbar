@@ -99,7 +99,7 @@ def next_pow2(x: int) -> int:
 
 
 def _get_image_name(spell_name: str) -> str:
-    return spell_name.lower().replace(" ", "_").replace("'", "").replace(":", "").replace("-", "_")
+    return spell_name.lower().replace(" ", "_").replace("'", "").replace(":", "").replace("-", "_").replace("’", "")
 
 
 def _get_overlay(spell_name: str) -> str | None:
@@ -588,3 +588,5 @@ if __name__ == "__main__":
                              mod_nordic_ui_root_path / "images/default_icons_nordic", alpha_mask,
                              alphamask_empty=False, alphamask_overlay=False, alphamask_highlight=False,
                              add_school_icon=True)
+
+    stitch_mod("thunderchild")

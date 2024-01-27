@@ -411,7 +411,12 @@ void RenderManager::D3DInitHook::thunk() {
     }
 
     logger::info("Getting swapchain...");
-    auto swapchain = render_data->renderWindows->swapChain;
+    auto render_window = renderer->GetCurrentRenderWindow();
+    if (!render_window) {
+        logger::error("Cannot get render_window. Initialization failed!");
+        return;
+    }
+    auto swapchain = render_window->swapChain;
     if (!swapchain) {
         logger::error("Cannot get swapChain. Initialization failed!");
         return;

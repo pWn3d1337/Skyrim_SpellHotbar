@@ -30,3 +30,5 @@ if __name__ == "__main__":
 
     #cleanse_images(f"{input_dir_root}/ai_spell_icons/shouts_generic", f"{output_dir_root}/vanilla_spell_icons/shouts_generic", subdirs=False)
 
+    #cleanse_images(f"{input_dir_root}/modded_spell_icons/thunderchild", f"{output_dir_root}/modded_spell_icons/thunderchild", subdirs=False)
+

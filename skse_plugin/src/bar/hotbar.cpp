@@ -115,7 +115,7 @@ namespace SpellHotbar
         // only 1 version for now, we can ignore version variable
 
         std::string name = Bars::bar_names.contains(type) ? Bars::bar_names.at(type) : "?";
-        logger::trace("Reading hotbar {} from save...", name);
+        //logger::trace("Reading hotbar {} from save...", name);
 
         // bar record length can vary, no length check
         if (!serializer->ReadRecordData(&m_enabled, sizeof(bool))) {
