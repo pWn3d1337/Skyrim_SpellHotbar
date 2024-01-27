@@ -7,8 +7,7 @@ Adds a Spell Hotbar to skyrim
 
 ## Supported Skyrim Version
 The mod is built with CommonLib-NG is verified to work on 1.5.97 and 1.6.640   
-1.6.1xxx is currently in an unstable state for mods and I would not recommend users to use it yet. 
-Maybe it will work already, depends if CommonLib + AddressLibrary is enough or not. I do not have an 1.6.1xxx setup at the moment so no support yet.
+1.6.1070 should also work, but only quick testing was done.
 
 ## Beta State
 This mod is currently just released to the public and not well tested. Use at your own risk. Tester Feedback would be greatly appreciated.
