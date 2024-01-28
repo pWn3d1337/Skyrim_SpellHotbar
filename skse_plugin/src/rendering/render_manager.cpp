@@ -785,83 +785,90 @@ void RenderManager::draw() {
         //io.WantCaptureMouse = false;
 
         if (magMenu) {
+
             if (!menu_open) {
                 // menu was open first time
                 menu_open = true;
                 Bars::menu_bar_id = Bars::getCurrentHotbar_ingame();
             }
+            if (!Bars::disable_menu_rendering) {
 
-            // draw hotbar
-            static constexpr ImGuiWindowFlags window_flag =
-                ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoInputs;  // ImGuiWindowFlags_NoBackground
-
-            auto [screen_size_x, screen_size_y, window_width] = calculate_menu_window_size();
-
-            ImGui::Begin("SpellHotbar", nullptr, window_flag);
-            if (Bars::hotbars.contains(Bars::menu_bar_id)) {
-                auto& bar = Bars::hotbars.at(Bars::menu_bar_id);
-
-                auto& prev_bar = Bars::hotbars.at(SpellHotbar::Bars::getPreviousMenuBar(SpellHotbar::Bars::menu_bar_id));
-                auto& next_bar = Bars::hotbars.at(SpellHotbar::Bars::getNextMenuBar(SpellHotbar::Bars::menu_bar_id));
-
-                ImGui::PushFont(font_symbols);
-                ImGui::Text("6");
-                ImGui::PopFont();
-                ImGui::SameLine();
-
-                bool table_ok = ImGui::BeginTable("SpellHotbarNavigation", 3, 0, ImVec2(window_width * 0.85f, 0.0f));
-                if (table_ok) {
-                    ImGui::TableNextColumn();
-
-                    ImGui::PushFont(font_text);
-                    ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Button, ImColor(0, 0, 0, 0).Value);
-                    ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Text, ImColor(192, 192, 192).Value);
-
-                    ImGui::Button(prev_bar.get_name().c_str(), ImVec2(-FLT_MIN, 0.0f));
-                    ImGui::TableNextColumn();
-
-                    ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Text, ImColor(255, 255, 255).Value);
-                    ImGui::Button(bar.get_name().c_str(), ImVec2(-FLT_MIN, 0.0f));
-                    ImGui::PopStyleColor();
-                    ImGui::TableNextColumn();
-
-                    ImGui::Button(next_bar.get_name().c_str(), ImVec2(-FLT_MIN, 0.0f));
-
-                    ImGui::PopStyleColor();
-                    ImGui::PopStyleColor();
-                    ImGui::PopFont();
-                    ImGui::EndTable();
-
-                } else {
-                    logger::trace("Error Rendering Table");
-                }
-                ImGui::SameLine();
-                ImGui::PushFont(font_symbols);
-                ImGui::Text("7");
-                ImGui::PopFont();
-
-                bar.draw_in_menu(font_text, screen_size_x, screen_size_y, highlight_slot, get_highlight_factor(), mod);
-            } else {
-                logger::error("Unknown Bar: {}", Bars::menu_bar_id);
-            }
-            ImGui::End();
-
-        } else if (favMenu && GameData::hasFavMenuSlotBinding()) {
-            // draw vampire lord / werewolf bind menu
-            uint32_t bar_id = Bars::getCurrentHotbar_ingame();
-            if (Bars::hotbars.contains(bar_id)) {
-                auto& bar = Bars::hotbars.at(bar_id);
-
+                // draw hotbar
                 static constexpr ImGuiWindowFlags window_flag =
                     ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoInputs;  // ImGuiWindowFlags_NoBackground
 
                 auto [screen_size_x, screen_size_y, window_width] = calculate_menu_window_size();
 
                 ImGui::Begin("SpellHotbar", nullptr, window_flag);
+                if (Bars::hotbars.contains(Bars::menu_bar_id)) {
+                    auto& bar = Bars::hotbars.at(Bars::menu_bar_id);
 
-                bar.draw_in_menu(font_text, screen_size_x, screen_size_y, highlight_slot, get_highlight_factor(), mod);
+                    auto& prev_bar = Bars::hotbars.at(SpellHotbar::Bars::getPreviousMenuBar(SpellHotbar::Bars::menu_bar_id));
+                    auto& next_bar = Bars::hotbars.at(SpellHotbar::Bars::getNextMenuBar(SpellHotbar::Bars::menu_bar_id));
 
+                    ImGui::PushFont(font_symbols);
+                    ImGui::Text("6");
+                    ImGui::PopFont();
+                    ImGui::SameLine();
+
+                    bool table_ok = ImGui::BeginTable("SpellHotbarNavigation", 3, 0, ImVec2(window_width * 0.85f, 0.0f));
+                    if (table_ok) {
+                        ImGui::TableNextColumn();
+
+                        ImGui::PushFont(font_text);
+                        ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Button, ImColor(0, 0, 0, 0).Value);
+                        ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Text, ImColor(192, 192, 192).Value);
+
+                        ImGui::Button(prev_bar.get_name().c_str(), ImVec2(-FLT_MIN, 0.0f));
+                        ImGui::TableNextColumn();
+
+                        ImGui::PushStyleColor(ImGuiCol_::ImGuiCol_Text, ImColor(255, 255, 255).Value);
+                        ImGui::Button(bar.get_name().c_str(), ImVec2(-FLT_MIN, 0.0f));
+                        ImGui::PopStyleColor();
+                        ImGui::TableNextColumn();
+
+                        ImGui::Button(next_bar.get_name().c_str(), ImVec2(-FLT_MIN, 0.0f));
+
+                        ImGui::PopStyleColor();
+                        ImGui::PopStyleColor();
+                        ImGui::PopFont();
+                        ImGui::EndTable();
+
+                    }
+                    else {
+                        logger::trace("Error Rendering Table");
+                    }
+                    ImGui::SameLine();
+                    ImGui::PushFont(font_symbols);
+                    ImGui::Text("7");
+                    ImGui::PopFont();
+
+                    bar.draw_in_menu(font_text, screen_size_x, screen_size_y, highlight_slot, get_highlight_factor(), mod);
+                }
+                else {
+                    logger::error("Unknown Bar: {}", Bars::menu_bar_id);
+                }
                 ImGui::End();
+            }
+
+        } else if (favMenu && GameData::hasFavMenuSlotBinding()) {
+            // draw vampire lord / werewolf bind menu
+            if (!Bars::disable_menu_rendering) {
+                uint32_t bar_id = Bars::getCurrentHotbar_ingame();
+                if (Bars::hotbars.contains(bar_id)) {
+                    auto& bar = Bars::hotbars.at(bar_id);
+
+                    static constexpr ImGuiWindowFlags window_flag =
+                        ImGuiWindowFlags_NoDecoration | ImGuiWindowFlags_NoInputs;  // ImGuiWindowFlags_NoBackground
+
+                    auto [screen_size_x, screen_size_y, window_width] = calculate_menu_window_size();
+
+                    ImGui::Begin("SpellHotbar", nullptr, window_flag);
+
+                    bar.draw_in_menu(font_text, screen_size_x, screen_size_y, highlight_slot, get_highlight_factor(), mod);
+
+                    ImGui::End();
+                }
             }
         } else {
             menu_open = false;

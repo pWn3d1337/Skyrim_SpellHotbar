@@ -28,7 +28,7 @@ released_files_main_plugin = [
     (dev_mod_root / "SKSE/Plugins/SpellHotbar/images/icons_cooldown.png", dev_mod_root),
     (dev_mod_root / "SKSE/Plugins/SpellHotbar/images/icons_vanilla.csv", dev_mod_root),
     (dev_mod_root / "SKSE/Plugins/SpellHotbar/images/icons_vanilla.png", dev_mod_root),
-    (dev_mod_root / "SKSE/Plugins/SpellHotbar/presets", dev_mod_root),
+    (dev_mod_root / "SKSE/Plugins/SpellHotbar/presets/*.json", dev_mod_root),
     (dev_mod_root / "SKSE/Plugins/SpellHotbar/spelldata/spells_vanilla.csv", dev_mod_root),
     (dev_mod_root / "SKSE/Plugins/SpellHotbar/transformdata", dev_mod_root),
 ]
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     version = "0.1"
 
     release_zip_path = project_root / f"build/Spell Hotbar_{version}.zip"
-    #build_release_zip(release_zip_path, released_files_main_plugin)
+    build_release_zip(release_zip_path, released_files_main_plugin)
 
     #build_release_zip(project_root / f"build/Spell Hotbar Nordic UI_1.0.zip", released_files_nordic_ui_plugin)
 
@@ -114,3 +114,6 @@ if __name__ == "__main__":
     #    build_release_zip(project_root / f"build/Spell Hotbar - {modname.capitalize()}_1.0.zip", get_spell_pack_list(modname))
 
     #build_release_zip(project_root / f"build/Spell Hotbar - Triumvirate_1.0.zip", released_files_triumvirate_spellpack)
+
+    #build_release_zip(project_root / f"build/Spell Hotbar - Thunderchild_1.0.zip",
+    #                  get_spell_pack_list("thunderchild"))

@@ -26,9 +26,10 @@ SKSEPluginLoad(const SKSE::LoadInterface * skse)
      });
 
     auto event_listener = SpellHotbar::events::EventListener::GetSingleton();
-    //SKSE::GetActionEventSource()->AddEventSink(event_listener);
+    SKSE::GetActionEventSource()->AddEventSink(event_listener);
     auto eventSourceHolder = RE::ScriptEventSourceHolder::GetSingleton();
     eventSourceHolder->AddEventSink<RE::TESSpellCastEvent>(event_listener);
+    //SKSE::GetActionEventSource()->AddEventSink(event_listener);
 
     SKSE::GetPapyrusInterface()->Register(SpellHotbar::register_papyrus_functions);
     SpellHotbar::RenderManager::install();

@@ -28,6 +28,7 @@ namespace SpellHotbar::Bars {
     bar_show_mode bar_show_setting_vampire_lord;
     bar_show_mode bar_show_setting_werewolf;
     bool use_default_bar_when_sheathed;
+    bool disable_menu_rendering;
 
     //non-persisten
     uint32_t menu_bar_id;
@@ -149,6 +150,7 @@ namespace SpellHotbar::Bars {
         bar_show_setting_werewolf = bar_show_mode::never;
 
         use_default_bar_when_sheathed = false;
+        disable_menu_rendering = false;
 
         add_bars(MAIN_BAR);
         add_bars(MELEE_BAR, MAIN_BAR);

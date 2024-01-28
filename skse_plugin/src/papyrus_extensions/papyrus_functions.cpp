@@ -308,7 +308,7 @@ void trigger_skill_cooldown(RE::StaticFunctionTag*, RE::TESForm* form)
             const auto& data = SpellHotbar::GameData::spell_cast_info.at(id);
             if (data.cooldown > 0.0f) {
                 //logger::info("Trigger Cooldown {} : {}", form->GetName(), data.cooldown);
-                SpellHotbar::GameData::add_gametime_cooldown_with_timescale(id, data.cooldown);
+                SpellHotbar::GameData::add_gametime_cooldown_with_timescale(id, data.cooldown, true);
             }
         }
     }
@@ -411,6 +411,14 @@ bool toggle_default_bar_when_sheathed(RE::StaticFunctionTag*) {
     return SpellHotbar::Bars::use_default_bar_when_sheathed = !SpellHotbar::Bars::use_default_bar_when_sheathed;
 }
 
+bool is_disable_menu_rendering(RE::StaticFunctionTag*) {
+    return SpellHotbar::Bars::disable_menu_rendering;
+}
+
+bool toggle_disable_menu_rendering(RE::StaticFunctionTag*) {
+    return SpellHotbar::Bars::disable_menu_rendering = !SpellHotbar::Bars::disable_menu_rendering;
+}
+
 bool SpellHotbar::register_papyrus_functions(RE::BSScript::IVirtualMachine* vm) {
     vm->RegisterFunction("getCurrentSelectedSpellInMenu", "SpellHotbar", get_current_selected_spell_in_menu);
     vm->RegisterFunction("getSlottedSpell", "SpellHotbar", get_slotted_spell);
@@ -461,5 +469,7 @@ bool SpellHotbar::register_papyrus_functions(RE::BSScript::IVirtualMachine* vm) 
     vm->RegisterFunction("isTransformedFavMenuBind", "SpellHotbar", is_transformed_with_fav_menu_binding);
     vm->RegisterFunction("isDefaultBarWhenSheathed", "SpellHotbar", is_default_bar_when_sheated);
     vm->RegisterFunction("toggleDefaultBarWhenSheathed", "SpellHotbar", toggle_default_bar_when_sheathed);
+    vm->RegisterFunction("isDisableMenuRendering", "SpellHotbar", is_disable_menu_rendering);
+    vm->RegisterFunction("toggleDisableMenuRendering", "SpellHotbar", toggle_disable_menu_rendering);
     return true;
 }

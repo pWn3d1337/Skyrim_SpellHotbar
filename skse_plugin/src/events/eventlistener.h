@@ -1,6 +1,6 @@
 #pragma once
 namespace SpellHotbar::events {
-    class EventListener : public RE::BSTEventSink<RE::TESSpellCastEvent>
+    class EventListener : public RE::BSTEventSink<RE::TESSpellCastEvent>, public RE::BSTEventSink<SKSE::ActionEvent>
     {
     public:
 
@@ -11,6 +11,9 @@ namespace SpellHotbar::events {
     
         RE::BSEventNotifyControl ProcessEvent(const RE::TESSpellCastEvent* event,
                                               RE::BSTEventSource<RE::TESSpellCastEvent>*);
+
+        RE::BSEventNotifyControl ProcessEvent(const SKSE::ActionEvent* event,
+            RE::BSTEventSource<SKSE::ActionEvent>*);
 
     private:
         EventListener() = default;

@@ -574,20 +574,31 @@ namespace SpellHotbar::GameData {
             }
         }
     }
-    void add_gametime_cooldown(RE::FormID skill, float hours)
+    void add_gametime_cooldown(RE::FormID skill, float hours, bool update_existing)
     { 
         auto cal = RE::Calendar::GetSingleton();
         if (cal) {
+            float curr_time = cal->GetCurrentGameTime();
             float gt_value = hours / 24.0f;
-            gametime_cooldowns.emplace(skill, Gametime_cooldown_value(cal->GetCurrentGameTime() + gt_value, gt_value));
+
+            if (gametime_cooldowns.contains(skill)) {
+                auto cd = gametime_cooldowns.find(skill);
+                if (update_existing || cd->second.is_expired(curr_time)) {
+                    cd->second = Gametime_cooldown_value(curr_time + gt_value, gt_value);
+                }
+            }
+            else {
+                gametime_cooldowns.emplace(skill, Gametime_cooldown_value(curr_time + gt_value, gt_value));
+            }
         }
     }
 
-    void add_gametime_cooldown_with_timescale(RE::FormID skill, float days) {
+    void add_gametime_cooldown_with_timescale(RE::FormID skill, float days, bool update_existing) {
+
         auto cal = RE::Calendar::GetSingleton();
         if (cal) {
-            float gt_value = days * cal->GetTimescale();
-            gametime_cooldowns.emplace(skill, Gametime_cooldown_value(cal->GetCurrentGameTime() + gt_value, gt_value));
+            float gt_value = days * cal->GetTimescale() * 24.0f;
+            add_gametime_cooldown(skill, gt_value, update_existing);
         }
     }
 
@@ -635,6 +646,11 @@ namespace SpellHotbar::GameData {
             return 1.0f - ((readytime - curr_time) / duration);
         }
         return 0.0f;
+    }
+
+    bool Gametime_cooldown_value::is_expired(float current_game_time)
+    {
+        return readytime <= 0.0f || current_game_time >= readytime;
     }
 
     Spell_cast_data::Spell_cast_data() : gcd(-1.0f), cooldown(-1.0f), casttime(-1.0f), animation(0), casteffectid{0} {}

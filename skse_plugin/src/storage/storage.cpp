@@ -39,6 +39,7 @@ namespace SpellHotbar::Storage {
             a_intfc->WriteRecordData(&bar_show_ww, sizeof(uint8_t));
 
             a_intfc->WriteRecordData(&Bars::use_default_bar_when_sheathed, sizeof(bool));
+            a_intfc->WriteRecordData(&Bars::disable_menu_rendering, sizeof(bool));
         }
 
         for (const auto& [k, v]: SpellHotbar::Bars::hotbars)
@@ -66,7 +67,7 @@ namespace SpellHotbar::Storage {
             if (type == 'HOTB')
             {
                 logger::trace("Reading 'HOTB' data from save...");
-                if (length != ((sizeof(bool) * 4) + (sizeof(uint8_t) * 6) + (sizeof(float)* 3) )) {
+                if (length != ((sizeof(bool) * 5) + (sizeof(uint8_t) * 6) + (sizeof(float)* 3) )) {
                     logger::error("Invalid Record data length for 'HOTB'");
                 }
                 else
@@ -142,6 +143,11 @@ namespace SpellHotbar::Storage {
 
                     if (!a_intfc->ReadRecordData(&Bars::use_default_bar_when_sheathed, sizeof(bool))) {
                         logger::error("Failed to read use_default_bar_when_sheathed!");
+                        break;
+                    }
+
+                    if (!a_intfc->ReadRecordData(&Bars::disable_menu_rendering, sizeof(bool))) {
+                        logger::error("Failed to read disable_menu_rendering!");
                         break;
                     }
                 }

@@ -16,7 +16,7 @@ mod_nordic_ui_root_path = Path(r"F:\Skyrim Dev\ADT\mods\Spell Hotbar NordicUI\SK
 # download from http://www.swftools.org/download.html
 png2swf_executable_path = r"F:\Skyrim Dev\TOOLS\SWFTools\png2swf.exe"
 
-swf_jar_path = str(Path(__file__).parent / "../SWF_Generator/out/artifacts/SWF_Generator_jar")
+swf_jar_path = str(Path(__file__).parent / "../SWF_Generator/out/artifacts/SWF_Generator_jar/SWF_Generator.jar")
 overlay_icons = {}
 
 image_size = 128
@@ -390,7 +390,7 @@ def create_cooldown_progress_overlay(output_base: Path | str, alpha_mask_path: s
 
 def create_i4_icons(spell_list: list[str], icon_root: list[str], output_path: Path | str, alpha_mask_path: str | None,
                     tmp_icons_dir: Path | str, swf_out_path: Path | str, swf_prefix: str = "spell",
-                    write_icons_and_swf: bool = True):
+                    write_icons_and_swf: bool = True, add_unbind_slot: bool = False):
     schema_link = "https://raw.githubusercontent.com/Exit-9B/InventoryInjector/main/docs/InventoryInjector.schema.json"
 
     swf_icon_size = 32
@@ -406,9 +406,10 @@ def create_i4_icons(spell_list: list[str], icon_root: list[str], output_path: Pa
         else:
             df = pd.concat([df, df_temp])
 
-    df_temp = pd.DataFrame([["Unbind Slot", "0x000810", "SpellHotbar.esp", "", -1, -1, -1, 0, np.nan]])
-    df_temp.columns = ["Name", "FormID", "Plugin", "Casteffect", "GCD", "Cooldown", "Casttime", "Animation", "Shouttext"]
-    df = pd.concat([df, df_temp])
+    if add_unbind_slot:
+        df_temp = pd.DataFrame([["Unbind Slot", "0x000810", "SpellHotbar.esp", "", -1, -1, -1, 0, np.nan]])
+        df_temp.columns = ["Name", "FormID", "Plugin", "Casteffect", "GCD", "Cooldown", "Casttime", "Animation", "Shouttext"]
+        df = pd.concat([df, df_temp])
 
     df['Filename'] = df['Name'].apply(_get_image_name)
     df['Path'] = df['Filename'].apply(_find_image, args=(icon_root,))
@@ -541,8 +542,9 @@ if __name__ == "__main__":
     # alpha_mask = none
     alpha_mask = rf"{project_root}\icons\alpha_mask.png"
 
-    #    stitch_folder(spell_lists, icon_root_folders, mod_root_path / "images/icons_vanilla", alpha_mask,
-    #                  output_data=mod_root_path / "spelldata/spells_vanilla")
+    if False:
+        stitch_folder(spell_lists, icon_root_folders, mod_root_path / "images/icons_vanilla", alpha_mask,
+                          output_data=mod_root_path / "spelldata/spells_vanilla")
 
     if False:
         stitch_default_icons(default_icons, default_icons_folders, mod_root_path / "images/default_icons", alpha_mask,
@@ -557,7 +559,7 @@ if __name__ == "__main__":
         swf_path = "F:\\Skyrim Dev\\ADT\\mods\\Spell Hotbar\\Interface\\SpellHotbar\\spell_icons.swf"
         create_i4_icons(spell_lists, icon_root_folders + default_icons_folders, mod_root_path / "../InventoryInjector/SpellHotbar.json",
                         alpha_mask,
-                        tmp_icons_dir=tmp_icons_dir, swf_out_path=swf_path, write_icons_and_swf=True)
+                        tmp_icons_dir=tmp_icons_dir, swf_out_path=swf_path, write_icons_and_swf=True, add_unbind_slot=True)
 
     # mods: vulcano
     #   stitch_mod("vulcano")
@@ -589,4 +591,5 @@ if __name__ == "__main__":
                              alphamask_empty=False, alphamask_overlay=False, alphamask_highlight=False,
                              add_school_icon=True)
 
-    stitch_mod("thunderchild")
+    #stitch_mod("thunderchild")
+    #i4_mod("thunderchild", tmp_icons_dir, esp_name="Thunderchild - Epic Shout Package")

@@ -87,6 +87,7 @@ namespace SpellHotbar::GameData {
 
         Gametime_cooldown_value(float readytime, float duration);
         float get_progress(float current_game_time);
+        bool is_expired(float current_game_time);
     };
 
     struct Spell_cast_data {
@@ -151,9 +152,9 @@ namespace SpellHotbar::GameData {
     float get_current_gcd_duration();
     void update_gcd_timer(float delta);
 
-    void add_gametime_cooldown(RE::FormID skill, float hours);
+    void add_gametime_cooldown(RE::FormID skill, float hours, bool update_existing);
 
-    void add_gametime_cooldown_with_timescale(RE::FormID skill, float days);
+    void add_gametime_cooldown_with_timescale(RE::FormID skill, float days, bool update_existing);
 
     void purge_expired_gametime_cooldowns();
 

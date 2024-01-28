@@ -23,6 +23,7 @@ namespace SpellHotbar::Bars {
     extern bar_show_mode bar_show_setting_werewolf;
 
     extern bool use_default_bar_when_sheathed;
+    extern bool disable_menu_rendering;
 
     constexpr uint32_t MAIN_BAR = 'MAIN';
     constexpr uint32_t MAIN_BAR_SNEAK = MAIN_BAR + 1;
