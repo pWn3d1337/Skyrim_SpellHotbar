@@ -121,6 +121,16 @@ namespace SpellHotbar::GameData {
 
         //load custom transformations
         CustomTransformCSVLoader::load_transformations(std::filesystem::path(custom_transformations_root));
+
+        //vampire lord add unbind power
+        auto vl_formlist = SpellHotbar::GameData::get_form_from_file(0x019AD9, "Dawnguard.esm");
+        if (vl_formlist && unbind_spell_form) {
+            auto fl = vl_formlist->As<RE::BGSListForm>();
+            fl->AddForm(unbind_spell_form);
+        }
+        else {
+            logger::error("Could not get Vampire Powers Formlist");
+        }
     }
 
     void reload_data()

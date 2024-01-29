@@ -1,5 +1,5 @@
 from pathlib import Path
-from zipfile import ZipFile, ZIP_STORED
+from zipfile import ZipFile, ZIP_STORED, ZIP_LZMA
 from glob import glob
 
 # this scripts builds a releasable zip file
@@ -40,13 +40,15 @@ released_files_nordic_ui_plugin = [
     (dev_mod_root_nordic_ui / "SKSE/Plugins/SpellHotbar/images/*.png", dev_mod_root_nordic_ui),
 ]
 
-def get_spell_pack_list(modname: str):
+def get_spell_pack_list(modname: str, esp_name: str | None = None):
+    if esp_name is None:
+        esp_name = modname.capitalize()
     return [
         (dev_mod_root / f"Interface/SpellHotbar/{modname}_icons.swf", dev_mod_root),
         (dev_mod_root / f"SKSE/Plugins/SpellHotbar/images/icons_{modname}.csv", dev_mod_root),
         (dev_mod_root / f"SKSE/Plugins/SpellHotbar/images/icons_{modname}.png", dev_mod_root),
         (dev_mod_root / f"SKSE/Plugins/SpellHotbar/spelldata/spells_{modname}.csv", dev_mod_root),
-        (dev_mod_root / f"SKSE/Plugins/InventoryInjector/{modname.capitalize()}.json", dev_mod_root),
+        (dev_mod_root / f"SKSE/Plugins/InventoryInjector/{esp_name}.json", dev_mod_root),
     ]
 
 released_files_triumvirate_spellpack = [
@@ -74,9 +76,9 @@ released_files_triumvirate_spellpack = [
 def build_release_zip(outfile: Path, files: list[tuple[Path, str | Path]], main_folder: str = "data"):
     print(f"Building Release zip: {outfile}...")
     main_path = Path(main_folder)
-    with ZipFile(outfile, mode="w", compression=ZIP_STORED) as zfile:
+    with ZipFile(outfile, mode="w", compression=ZIP_LZMA) as zfile:
         for entry in files:
-            file_list = glob(str(entry[0]))
+            file_list = glob(str(entry[0]), recursive=True)
             for file_name in file_list:
                 if isinstance(entry[1], Path):
                     arcname = str(main_path / Path(file_name).relative_to(entry[1]))
@@ -105,15 +107,15 @@ def test_build_release_zip(outfile: Path, files: list[tuple[Path, str]], main_fo
 if __name__ == "__main__":
     version = "0.1"
 
-    release_zip_path = project_root / f"build/Spell Hotbar_{version}.zip"
+    release_zip_path = project_root / f"build/Spell Hotbar {version}.zip"
     build_release_zip(release_zip_path, released_files_main_plugin)
 
-    #build_release_zip(project_root / f"build/Spell Hotbar Nordic UI_1.0.zip", released_files_nordic_ui_plugin)
+    #build_release_zip(project_root / f"build/Spell Hotbar Nordic UI 1.0.zip", released_files_nordic_ui_plugin)
 
     #for modname in ["vulcano", "arclight", "desecration"]:
-    #    build_release_zip(project_root / f"build/Spell Hotbar - {modname.capitalize()}_1.0.zip", get_spell_pack_list(modname))
+    #    build_release_zip(project_root / f"build/Spell Hotbar - {modname.capitalize()} 1.0.zip", get_spell_pack_list(modname))
 
-    #build_release_zip(project_root / f"build/Spell Hotbar - Triumvirate_1.0.zip", released_files_triumvirate_spellpack)
+    #build_release_zip(project_root / f"build/Spell Hotbar - Triumvirate 1.0.zip", released_files_triumvirate_spellpack)
 
-    #build_release_zip(project_root / f"build/Spell Hotbar - Thunderchild_1.0.zip",
-    #                  get_spell_pack_list("thunderchild"))
+    #build_release_zip(project_root / f"build/Spell Hotbar - Thunderchild 1.0.zip",
+    #                  get_spell_pack_list("thunderchild", esp_name="Thunderchild - Epic Shout Package"))
