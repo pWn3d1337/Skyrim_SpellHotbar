@@ -25,6 +25,9 @@ Both should be able to get rid of from your save by using [ReSaver](https://www.
 [DAR](https://www.nexusmods.com/skyrimspecialedition/mods/33746) or [OAR](https://www.nexusmods.com/skyrimspecialedition/mods/92109) - for animations  
 [Inventory Interface Information Injector](https://www.nexusmods.com/skyrimspecialedition/mods/85702) - if you want icons in the swf menu
 
+## Download
+[Releases Page](../../releases)
+
 ## Slotting Spells
 Up to 12 shortcuts can be defined for spells to be directly cast (with weapons in hands) by script.
 The slots can be assigned from within the magic menu by hovering over a spell and pressing their shortcut.
