@@ -10,7 +10,6 @@ import math
 import json
 
 mod_root_path = Path(r"F:\Skyrim Dev\ADT\mods\Spell Hotbar\SKSE\Plugins\SpellHotbar")
-mod_nordic_ui_root_path = Path(r"F:\Skyrim Dev\ADT\mods\Spell Hotbar NordicUI\SKSE\Plugins\SpellHotbar")
 
 # only needed when creating icon swf for I4
 # download from http://www.swftools.org/download.html
@@ -586,6 +585,7 @@ if __name__ == "__main__":
 
     #create nordic_ui files
     if False:
+        mod_nordic_ui_root_path = Path(r"F:\Skyrim Dev\ADT\mods\Spell Hotbar NordicUI\SKSE\Plugins\SpellHotbar")
         stitch_default_icons(default_icons, [rf"{project_root}\icons\nordic_ui"],
                              mod_nordic_ui_root_path / "images/default_icons_nordic", alpha_mask,
                              alphamask_empty=False, alphamask_overlay=False, alphamask_highlight=False,
@@ -593,3 +593,9 @@ if __name__ == "__main__":
 
     #stitch_mod("thunderchild")
     #i4_mod("thunderchild", tmp_icons_dir, esp_name="Thunderchild - Epic Shout Package")
+
+    #stitch_mod("sonic_magic")
+    #stitch_mod("storm_calling_magic2")
+
+    #i4_mod("sonic_magic", tmp_icons_dir, esp_name="Shockwave")
+    #i4_mod("storm_calling_magic2", tmp_icons_dir, esp_name="StormCalling")

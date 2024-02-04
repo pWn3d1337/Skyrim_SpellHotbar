@@ -105,7 +105,7 @@ def test_build_release_zip(outfile: Path, files: list[tuple[Path, str]], main_fo
 
 
 if __name__ == "__main__":
-    version = "0.1"
+    version = "0.1.1"
 
     release_zip_path = project_root / f"build/Spell Hotbar {version}.zip"
     build_release_zip(release_zip_path, released_files_main_plugin)
@@ -119,3 +119,7 @@ if __name__ == "__main__":
 
     #build_release_zip(project_root / f"build/Spell Hotbar - Thunderchild 1.0.zip",
     #                  get_spell_pack_list("thunderchild", esp_name="Thunderchild - Epic Shout Package"))
+
+    #build_release_zip(project_root / "build/Spell Hotbar - Sonic Magic 1.0.zip", get_spell_pack_list("sonic_magic", esp_name="Shockwave"))
+
+    #build_release_zip(project_root / "build/Spell Hotbar - Storm Calling Magic 2 1.0.zip", get_spell_pack_list("storm_calling_magic2", esp_name="StormCalling"))
