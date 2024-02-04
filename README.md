@@ -6,6 +6,9 @@ Adds a Spell Hotbar to skyrim
 [Demo Video 2](https://www.youtube.com/watch?v=r-Z7taHRuek)  
 [Vampire Lord Demo](https://www.youtube.com/watch?v=OXVt1Tvbha0)
 
+## Also available on Nexus
+[Nexusmods link](https://www.nexusmods.com/skyrimspecialedition/mods/110763)  
+
 ## Supported Skyrim Version
 The mod is built with CommonLib-NG is verified to work on 1.5.97 and 1.6.640   
 1.6.1070 should also work, but only quick testing was done.
