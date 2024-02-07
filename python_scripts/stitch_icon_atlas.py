@@ -15,17 +15,17 @@ mod_root_path = Path(r"F:\Skyrim Dev\ADT\mods\Spell Hotbar\SKSE\Plugins\SpellHot
 # download from http://www.swftools.org/download.html
 png2swf_executable_path = r"F:\Skyrim Dev\TOOLS\SWFTools\png2swf.exe"
 
-
 # PARAMS FOR RANK TEXT
 rank_text_font = str(Path(__file__).parent / "icons/sovngarde_font.ttf")
-#rank_text_font = str(Path(__file__).parent / "icons/9_$ConsoleFont_Futura Condensed.ttf")
+# rank_text_font = str(Path(__file__).parent / "icons/9_$ConsoleFont_Futura Condensed.ttf")
 
-#text anchor pos is center for vertical (Y), and right for horizontal (X)
+# text anchor pos is center for vertical (Y), and right for horizontal (X)
 rank_text_pos_x = 0.95  # 0.75 = middle right quarter
 rank_text_pox_y = 0.75  # 0.75 = middle bottom quarter
 rank_text_scale = 0.6  # font size compared to image size
-#rank_text_color_fill = (32, 165, 218, 255)  # Colors are BGRA not RGBA!!!! that's some opencv thing (actually it's PIL this time)
-rank_text_color_fill = (255, 255, 255, 255)  # Colors are BGRA not RGBA!!!! that's some opencv thing (actually it's PIL this time)
+# rank_text_color_fill = (32, 165, 218, 255)  # Colors are BGRA not RGBA!!!! that's some opencv thing (actually it's PIL this time)
+rank_text_color_fill = (
+255, 255, 255, 255)  # Colors are BGRA not RGBA!!!! that's some opencv thing (actually it's PIL this time)
 rank_text_color_border = (0, 0, 0, 255)
 
 swf_jar_path = str(Path(__file__).parent / "../SWF_Generator/out/artifacts/SWF_Generator_jar/SWF_Generator.jar")
@@ -157,12 +157,28 @@ def _stitch_images_internal(df: pd.DataFrame, alpha_mask_path: str | None) -> tu
     dragon_font_path = Path(__file__).parent / 'icons/6_$DragonFont_Dragon_script.ttf'
     dragon_font = ImageFont.truetype(str(dragon_font_path), round(image_size * 0.5))
 
-    rank_font = ImageFont.truetype(str(rank_text_font), round(image_size*rank_text_scale))
+    rank_font = ImageFont.truetype(str(rank_text_font), round(image_size * rank_text_scale))
+
+    def _get_unique_key(row: pd.Series) -> str | None:
+        if not pd.isna(row['Path']):
+            ret = row['Path']
+            shouttext = ""
+            ranktext = ""
+            if "Shouttext" in row.index:
+                shouttext = "\t" + row["Shouttext"] if not pd.isna(row["Shouttext"]) else ""
+            if "Ranktext" in row.index:
+                ranktext = "\t" + row["Ranktext"] if not pd.isna(row["Ranktext"]) else ""
+
+            return f"{ret}{shouttext}{ranktext}"
+
+        return None
+
+    df['unique_key'] = df.apply(_get_unique_key, axis=1)
 
     df_pathes = df[~pd.isna(df['Path'])]
 
     num_icons = len(df_pathes['Path'])
-    num_images = len(pd.unique(df_pathes['Path']))
+    num_images = len(pd.unique(df_pathes['unique_key']))
 
     row_len = math.ceil(math.sqrt(num_images))
 
@@ -195,6 +211,7 @@ def _stitch_images_internal(df: pd.DataFrame, alpha_mask_path: str | None) -> tu
     overlay_index = df.columns.get_loc('overlay') if 'overlay' in df.columns else -1
     dragontext_index = df.columns.get_loc('Shouttext') if 'Shouttext' in df.columns else -1
     ranktext_index = df.columns.get_loc('Ranktext') if 'Ranktext' in df.columns else -1
+    unique_key_index = df.columns.get_loc('unique_key')
 
     overlay_images = {}
     if overlay_index >= 0:
@@ -208,7 +225,8 @@ def _stitch_images_internal(df: pd.DataFrame, alpha_mask_path: str | None) -> tu
     for i in range(num_icons):
         path_to_load = df.iloc[i, path_index]
         if not pd.isna(path_to_load) and Path(path_to_load).exists():
-            if str(path_to_load) not in already_used_textures:
+            unique_key = df.iloc[i, unique_key_index]
+            if str(unique_key) not in already_used_textures:
                 img = cv2.imread(path_to_load, cv2.IMREAD_UNCHANGED)
                 img = cv2.resize(img, (image_size, image_size), interpolation=cv2.INTER_LANCZOS4)
 
@@ -234,12 +252,6 @@ def _stitch_images_internal(df: pd.DataFrame, alpha_mask_path: str | None) -> tu
                 if dragontext_index >= 0:
                     dragonstr: str = df.iloc[i, dragontext_index]
                     if not pd.isna(dragonstr):
-                        # pil_img = Image.fromarray(img)
-                        # draw = ImageDraw.Draw(pil_img)
-                        # draw.text(xy=(image_size * 0.5, image_size * 0.5), text=dragonstr, font=dragon_font,
-                        #          anchor="mm",
-                        #          align="center", stroke_fill=ImageColor.getrgb("black"), stroke_width=3, spacing=0)
-                        # img = np.array(pil_img)
                         img = add_dragonlang_text_to_image(img, image_size, dragonstr, dragon_font)
 
                 if ranktext_index >= 0:
@@ -262,12 +274,12 @@ def _stitch_images_internal(df: pd.DataFrame, alpha_mask_path: str | None) -> tu
                 if (x + image_size) > atlas_size:
                     x = 0
                     y = y + image_size
-                already_used_textures[str(path_to_load)] = (
+                already_used_textures[str(unique_key)] = (
                     df.iloc[i, u0_index], df.iloc[i, u1_index], df.iloc[i, v0_index], df.iloc[i, v1_index])
 
             else:
-                print(f"{path_to_load} already stitched, using existing coordinates")
-                coordinates = already_used_textures[path_to_load]
+                print(f"{unique_key} already stitched, using existing coordinates")
+                coordinates = already_used_textures[unique_key]
                 df.iloc[i, u0_index] = coordinates[0]
                 df.iloc[i, u1_index] = coordinates[1]
                 df.iloc[i, v0_index] = coordinates[2]
@@ -440,9 +452,9 @@ def create_i4_icons(spell_list: list[str], icon_root: list[str], output_path: Pa
             df = pd.concat([df, df_temp])
 
     if add_unbind_slot:
-        df_temp = pd.DataFrame([["Unbind Slot", "0x000810", "SpellHotbar.esp", "", -1, -1, -1, 0, np.nan]])
+        df_temp = pd.DataFrame([["Unbind Slot", "0x000810", "SpellHotbar.esp", "", -1, -1, -1, 0, np.nan, np.nan]])
         df_temp.columns = ["Name", "FormID", "Plugin", "Casteffect", "GCD", "Cooldown", "Casttime", "Animation",
-                           "Shouttext"]
+                           "Shouttext", "Ranktext"]
         df = pd.concat([df, df_temp])
 
     df['Filename'] = df['Name'].apply(_get_image_name)
@@ -459,6 +471,13 @@ def create_i4_icons(spell_list: list[str], icon_root: list[str], output_path: Pa
     entry_list = []
 
     for index, row in df.iterrows():
+        file_suffix = ""
+        if not pd.isna(row["Shouttext"]):
+            file_suffix = file_suffix + f"_{row['Shouttext']}"
+
+        if not pd.isna(row["Ranktext"]):
+            file_suffix = file_suffix + f"_{row['Ranktext']}"
+
         entry = {
             "match": {
                 # "formType": "Spell",
@@ -466,7 +485,7 @@ def create_i4_icons(spell_list: list[str], icon_root: list[str], output_path: Pa
             },
             "assign": {
                 "iconSource": f"SpellHotbar/{swf_prefix}_icons.swf",
-                "iconLabel": f"{row['Filename']}",
+                "iconLabel": f"{row['Filename']}{file_suffix}",
                 "iconColor": "#ffffff"
             }
         }
@@ -484,15 +503,23 @@ def create_i4_icons(spell_list: list[str], icon_root: list[str], output_path: Pa
     if write_icons_and_swf:
         if "Shouttext" not in df.columns:
             df["Shouttext"] = np.nan
-        df_icons = df[['Filename', 'Path', 'Shouttext']]
+        if "Ranktext" not in df.columns:
+            df["Ranktext"] = np.nan
+
+        df_icons = df[['Filename', 'Path', 'Shouttext', 'Ranktext']]
+
+        def _get_unique_key(row: pd.Series) -> str:
+            shouttext = f"_{row['Shouttext']}" if not pd.isna(row['Shouttext']) else ''
+            ranktext = f"_{row['Ranktext']}" if not pd.isna(row['Ranktext']) else ''
+            return f"{row['Filename']}{shouttext}{ranktext}"
 
         df_icons = df_icons[~pd.isna(df_icons['Path'])]
+        df_icons['unique_key'] = df_icons.apply(_get_unique_key, axis=1)
         df_icons = df_icons.drop_duplicates()
         df_icons = df_icons.sort_values(by='Filename')
 
         out_pathes = []
         for index, row in df_icons.iterrows():
-            out_img_path = f"{tmp_icons_dir}/{row['Filename']}.png"
             img = cv2.imread(row['Path'], cv2.IMREAD_UNCHANGED)
             img = cv2.resize(img, (swf_icon_size, swf_icon_size), interpolation=cv2.INTER_LANCZOS4)
 
@@ -502,12 +529,13 @@ def create_i4_icons(spell_list: list[str], icon_root: list[str], output_path: Pa
             if not pd.isna(row["Ranktext"]):
                 img = add_rank_text_to_image(img, swf_icon_size, row["Ranktext"], rank_font, stroke_width=1)
 
+            out_img_path = f"{tmp_icons_dir}/{row['unique_key']}.png"
             cv2.imwrite(out_img_path, img)
             out_pathes.append(out_img_path)
 
         proc = subprocess.run([png2swf_executable_path, "-o", f"{swf_out_path}", "-X", "128", "-Y", "128"] + out_pathes)
 
-        labels = df_icons['Filename'].to_list()
+        labels = df_icons['unique_key'].to_list()
         proc2 = subprocess.run(
             ["java", "-jar", swf_jar_path,
              f"{swf_out_path}", f"{swf_out_path}"] + labels)
@@ -579,7 +607,7 @@ if __name__ == "__main__":
     # alpha_mask = none
     alpha_mask = rf"{project_root}\icons\alpha_mask.png"
 
-    if False:
+    if True:
         stitch_folder(spell_lists, icon_root_folders, mod_root_path / "images/icons_vanilla", alpha_mask,
                       output_data=mod_root_path / "spelldata/spells_vanilla")
 
@@ -593,7 +621,7 @@ if __name__ == "__main__":
     # tmp_swf_path = r"F:\Skyrim Dev\WORK\TMP\tmp_spell_icons.swf"
 
     tmp_icons_dir = r"F:\Skyrim Dev\WORK\TMP\icons"
-    if False:
+    if True:
         swf_path = "F:\\Skyrim Dev\\ADT\\mods\\Spell Hotbar\\Interface\\SpellHotbar\\spell_icons.swf"
         create_i4_icons(spell_lists, icon_root_folders + default_icons_folders,
                         mod_root_path / "../InventoryInjector/SpellHotbar.json",
