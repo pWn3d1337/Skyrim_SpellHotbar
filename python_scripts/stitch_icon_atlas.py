@@ -15,6 +15,19 @@ mod_root_path = Path(r"F:\Skyrim Dev\ADT\mods\Spell Hotbar\SKSE\Plugins\SpellHot
 # download from http://www.swftools.org/download.html
 png2swf_executable_path = r"F:\Skyrim Dev\TOOLS\SWFTools\png2swf.exe"
 
+
+# PARAMS FOR RANK TEXT
+rank_text_font = str(Path(__file__).parent / "icons/sovngarde_font.ttf")
+#rank_text_font = str(Path(__file__).parent / "icons/9_$ConsoleFont_Futura Condensed.ttf")
+
+#text anchor pos is center for vertical (Y), and right for horizontal (X)
+rank_text_pos_x = 0.95  # 0.75 = middle right quarter
+rank_text_pox_y = 0.75  # 0.75 = middle bottom quarter
+rank_text_scale = 0.6  # font size compared to image size
+#rank_text_color_fill = (32, 165, 218, 255)  # Colors are BGRA not RGBA!!!! that's some opencv thing (actually it's PIL this time)
+rank_text_color_fill = (255, 255, 255, 255)  # Colors are BGRA not RGBA!!!! that's some opencv thing (actually it's PIL this time)
+rank_text_color_border = (0, 0, 0, 255)
+
 swf_jar_path = str(Path(__file__).parent / "../SWF_Generator/out/artifacts/SWF_Generator_jar/SWF_Generator.jar")
 overlay_icons = {}
 
@@ -129,9 +142,22 @@ def add_dragonlang_text_to_image(img: np.ndarray, img_size: int, dragonstr: str,
     return img_out
 
 
+def add_rank_text_to_image(img: np.ndarray, img_size: int, ranktext: str, rank_font,
+                           stroke_width: int = 1) -> np.ndarray:
+    pil_img = Image.fromarray(img)
+    draw = ImageDraw.Draw(pil_img)
+    draw.text(xy=(img_size * rank_text_pos_x, img_size * rank_text_pox_y), text=ranktext, font=rank_font,
+              anchor="rm", align="center", fill=rank_text_color_fill, stroke_fill=rank_text_color_border,
+              stroke_width=stroke_width, spacing=0)
+    img_out = np.array(pil_img)
+    return img_out
+
+
 def _stitch_images_internal(df: pd.DataFrame, alpha_mask_path: str | None) -> tuple[pd.DataFrame, np.ndarray]:
     dragon_font_path = Path(__file__).parent / 'icons/6_$DragonFont_Dragon_script.ttf'
     dragon_font = ImageFont.truetype(str(dragon_font_path), round(image_size * 0.5))
+
+    rank_font = ImageFont.truetype(str(rank_text_font), round(image_size*rank_text_scale))
 
     df_pathes = df[~pd.isna(df['Path'])]
 
@@ -168,6 +194,7 @@ def _stitch_images_internal(df: pd.DataFrame, alpha_mask_path: str | None) -> tu
     use_mask_index = df.columns.get_loc('use_mask')
     overlay_index = df.columns.get_loc('overlay') if 'overlay' in df.columns else -1
     dragontext_index = df.columns.get_loc('Shouttext') if 'Shouttext' in df.columns else -1
+    ranktext_index = df.columns.get_loc('Ranktext') if 'Ranktext' in df.columns else -1
 
     overlay_images = {}
     if overlay_index >= 0:
@@ -214,6 +241,11 @@ def _stitch_images_internal(df: pd.DataFrame, alpha_mask_path: str | None) -> tu
                         #          align="center", stroke_fill=ImageColor.getrgb("black"), stroke_width=3, spacing=0)
                         # img = np.array(pil_img)
                         img = add_dragonlang_text_to_image(img, image_size, dragonstr, dragon_font)
+
+                if ranktext_index >= 0:
+                    ranktext: str = df.iloc[i, ranktext_index]
+                    if not pd.isna(ranktext):
+                        img = add_rank_text_to_image(img, image_size, ranktext, rank_font)
 
                 if df.iloc[i, use_mask_index]:
                     # multiply alpha mask
@@ -397,6 +429,8 @@ def create_i4_icons(spell_list: list[str], icon_root: list[str], output_path: Pa
     dragon_font_path = Path(__file__).parent / 'icons/6_$DragonFont_Dragon_script.ttf'
     dragon_font = ImageFont.truetype(str(dragon_font_path), round(swf_icon_size * 0.5))
 
+    rank_font = ImageFont.truetype(str(rank_text_font), round(swf_icon_size * rank_text_scale))
+
     df = None
     for spells in spell_list:
         df_temp = pd.read_csv(spells, sep="\t")
@@ -407,7 +441,8 @@ def create_i4_icons(spell_list: list[str], icon_root: list[str], output_path: Pa
 
     if add_unbind_slot:
         df_temp = pd.DataFrame([["Unbind Slot", "0x000810", "SpellHotbar.esp", "", -1, -1, -1, 0, np.nan]])
-        df_temp.columns = ["Name", "FormID", "Plugin", "Casteffect", "GCD", "Cooldown", "Casttime", "Animation", "Shouttext"]
+        df_temp.columns = ["Name", "FormID", "Plugin", "Casteffect", "GCD", "Cooldown", "Casttime", "Animation",
+                           "Shouttext"]
         df = pd.concat([df, df_temp])
 
     df['Filename'] = df['Name'].apply(_get_image_name)
@@ -463,6 +498,9 @@ def create_i4_icons(spell_list: list[str], icon_root: list[str], output_path: Pa
 
             if not pd.isna(row["Shouttext"]):
                 img = add_dragonlang_text_to_image(img, swf_icon_size, row["Shouttext"], dragon_font, stroke_width=1)
+
+            if not pd.isna(row["Ranktext"]):
+                img = add_rank_text_to_image(img, swf_icon_size, row["Ranktext"], rank_font, stroke_width=1)
 
             cv2.imwrite(out_img_path, img)
             out_pathes.append(out_img_path)
@@ -543,11 +581,12 @@ if __name__ == "__main__":
 
     if False:
         stitch_folder(spell_lists, icon_root_folders, mod_root_path / "images/icons_vanilla", alpha_mask,
-                          output_data=mod_root_path / "spelldata/spells_vanilla")
+                      output_data=mod_root_path / "spelldata/spells_vanilla")
 
     if False:
         stitch_default_icons(default_icons, default_icons_folders, mod_root_path / "images/default_icons", alpha_mask,
-                                 alphamask_empty=False, alphamask_overlay=False, alphamask_highlight=False, add_school_icon=True)
+                             alphamask_empty=False, alphamask_overlay=False, alphamask_highlight=False,
+                             add_school_icon=True)
 
     # create_cooldown_progress_overlay(mod_root_path / "images/icons_cooldown", alpha_mask, radius=1.0, alpha=0.8)
 
@@ -556,9 +595,11 @@ if __name__ == "__main__":
     tmp_icons_dir = r"F:\Skyrim Dev\WORK\TMP\icons"
     if False:
         swf_path = "F:\\Skyrim Dev\\ADT\\mods\\Spell Hotbar\\Interface\\SpellHotbar\\spell_icons.swf"
-        create_i4_icons(spell_lists, icon_root_folders + default_icons_folders, mod_root_path / "../InventoryInjector/SpellHotbar.json",
+        create_i4_icons(spell_lists, icon_root_folders + default_icons_folders,
+                        mod_root_path / "../InventoryInjector/SpellHotbar.json",
                         alpha_mask,
-                        tmp_icons_dir=tmp_icons_dir, swf_out_path=swf_path, write_icons_and_swf=True, add_unbind_slot=True)
+                        tmp_icons_dir=tmp_icons_dir, swf_out_path=swf_path, write_icons_and_swf=True,
+                        add_unbind_slot=True)
 
     # mods: vulcano
     #   stitch_mod("vulcano")
@@ -582,8 +623,7 @@ if __name__ == "__main__":
                [rf"{project_root}\modded_spell_icons\triumvirate_{a}" for a in t_archetypes],
                esp_name="Triumvirate - Mage Archetypes")
 
-
-    #create nordic_ui files
+    # create nordic_ui files
     if False:
         mod_nordic_ui_root_path = Path(r"F:\Skyrim Dev\ADT\mods\Spell Hotbar NordicUI\SKSE\Plugins\SpellHotbar")
         stitch_default_icons(default_icons, [rf"{project_root}\icons\nordic_ui"],
@@ -591,11 +631,14 @@ if __name__ == "__main__":
                              alphamask_empty=False, alphamask_overlay=False, alphamask_highlight=False,
                              add_school_icon=True)
 
-    #stitch_mod("thunderchild")
-    #i4_mod("thunderchild", tmp_icons_dir, esp_name="Thunderchild - Epic Shout Package")
+    # stitch_mod("thunderchild")
+    # i4_mod("thunderchild", tmp_icons_dir, esp_name="Thunderchild - Epic Shout Package")
 
-    #stitch_mod("sonic_magic")
-    #stitch_mod("storm_calling_magic2")
+    # stitch_mod("sonic_magic")
+    # stitch_mod("storm_calling_magic2")
 
-    #i4_mod("sonic_magic", tmp_icons_dir, esp_name="Shockwave")
-    #i4_mod("storm_calling_magic2", tmp_icons_dir, esp_name="StormCalling")
+    # i4_mod("sonic_magic", tmp_icons_dir, esp_name="Shockwave")
+    # i4_mod("storm_calling_magic2", tmp_icons_dir, esp_name="StormCalling")
+
+    # stitch_mod("astral_magic_2")
+    # i4_mod("astral_magic_2", tmp_icons_dir, esp_name="Astral")

@@ -35,3 +35,5 @@ if __name__ == "__main__":
     #cleanse_images(f"{input_dir_root}/modded_spell_icons/storm_calling_magic2", f"{output_dir_root}/modded_spell_icons/storm_calling_magic2", subdirs=False)
     #cleanse_images(f"{input_dir_root}/modded_spell_icons/sonic_magic", f"{output_dir_root}/modded_spell_icons/sonic_magic", subdirs=False)
 
+    #cleanse_images(f"{input_dir_root}/modded_spell_icons/astral_magic_2", f"{output_dir_root}/modded_spell_icons/astral_magic_2", subdirs=False)
+
