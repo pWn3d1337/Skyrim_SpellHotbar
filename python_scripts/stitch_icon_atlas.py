@@ -621,7 +621,7 @@ if __name__ == "__main__":
     # tmp_swf_path = r"F:\Skyrim Dev\WORK\TMP\tmp_spell_icons.swf"
 
     tmp_icons_dir = r"F:\Skyrim Dev\WORK\TMP\icons"
-    if True:
+    if False:
         swf_path = "F:\\Skyrim Dev\\ADT\\mods\\Spell Hotbar\\Interface\\SpellHotbar\\spell_icons.swf"
         create_i4_icons(spell_lists, icon_root_folders + default_icons_folders,
                         mod_root_path / "../InventoryInjector/SpellHotbar.json",

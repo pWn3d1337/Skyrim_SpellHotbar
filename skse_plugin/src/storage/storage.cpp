@@ -60,6 +60,9 @@ namespace SpellHotbar::Storage {
     {
         logger::trace("Loading from SKSE save...");
 
+        //clear all bars
+        SpellHotbar::Bars::clear_bars();
+
         uint32_t type{0};
         uint32_t version{0};
         uint32_t length{0};

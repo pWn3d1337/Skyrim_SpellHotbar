@@ -130,9 +130,9 @@ namespace SpellHotbar
             }
 
             deserialize_bar(m_bar, serializer, name, type, length);
-            if (Bars::enable_ctrl_bars) deserialize_bar(m_ctrl_bar, serializer, name, type, length);
-            if (Bars::enable_shift_bars) deserialize_bar(m_shift_bar, serializer, name, type, length);
-            if (Bars::enable_alt_bars) deserialize_bar(m_alt_bar, serializer, name, type, length);
+            deserialize_bar(m_ctrl_bar, serializer, name, type, length);
+            deserialize_bar(m_shift_bar, serializer, name, type, length);
+            deserialize_bar(m_alt_bar, serializer, name, type, length);
         }
 
         if (type == Bars::MAIN_BAR) {
