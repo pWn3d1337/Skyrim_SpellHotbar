@@ -111,7 +111,6 @@ The java source code in this repo will inherit the GPL v3 License from JPEXS, fo
 [stb_image](https://github.com/nothings/stb)  
 [SKSE](https://skse.silverlock.org/)  
 [Address Library](https://www.nexusmods.com/skyrimspecialedition/mods/32444)  
-[DirectXTK](https://github.com/microsoft/DirectXTK)
 
 ### Important References
 [Wheeler](https://github.com/D7ry/wheeler)  
